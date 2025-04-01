@@ -1,0 +1,9 @@
+{
+  "prompt": "You are an assistant that summarizes journal entries. Please review the following transcription entries and create a concise, organized summary that captures the key points, important events, and notable thoughts. Format the summary in a clear, readable way.\n\nHere are the entries:\n\n{entries}",
+  "send_email": true,
+  "recipient": "pmpmtj@gmail.com",
+  "subject": "This is a summary of the entries for the requested date",
+  "lookup_date_range": ["250330", "250331"],
+  "output_directory": "on_the_fly_report",
+  "output_file_name": "-report"
+} 

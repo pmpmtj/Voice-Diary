@@ -1,0 +1,14 @@
+{
+  "last_run_status": "failed",
+  "last_run_time": "2025-03-30T17:49:51.320779",
+  "total_runs": 27,
+  "successful_runs": 9,
+  "processing_stats": {
+    "total_processed": 17,
+    "successful_processed": 17,
+    "failed_processed": 0,
+    "last_processed_time": "2025-03-30T17:49:51.129204"
+  },
+  "last_failed_step": "ongoing_entries_processing",
+  "last_error": "2025-03-30 17:49:51,210 - INFO - Starting ongoing entries processing chain\n2025-03-30 17:49:51,211 - INFO - Running check_ongoing_entries.py with command: c:\\Users\\pmpmt\\Desktop\\Voice-Diary-V3-PG-Desktop\\.venv\\Scripts\\pythonw.exe C:\\Users\\pmpmt\\Desktop\\Voice-Diary-V3-PG-Desktop\\create_journal_of_the_day\\check_ongoing_entries.py --format json\n2025-03-30 17:49:51,312 - ERROR - Error running check_ongoing_entries.py: Command '['c:\\\\Users\\\\pmpmt\\\\Desktop\\\\Voice-Diary-V3-PG-Desktop\\\\.venv\\\\Scripts\\\\pythonw.exe', 'C:\\\\Users\\\\pmpmt\\\\Desktop\\\\Voice-Diary-V3-PG-Desktop\\\\create_journal_of_the_day\\\\check_ongoing_entries.py', '--format', 'json']' returned non-zero exit status 1.\n2025-03-30 17:49:51,312 - ERROR - Error output: 2025-03-30 17:49:51,304 - INFO - Single file found. At least two files are needed for processing.\n\n2025-03-30 17:49:51,312 - INFO - No valid ongoing entries file found. Exiting.\n"
+}

@@ -1,0 +1,20 @@
+# OpenAI API Configuration
+
+openai_config:
+  # API settings
+  api_endpoint: "https://api.openai.com/v1/chat/completions"
+  api_key: ""  # Will be loaded from environment variable OPENAI_API_KEY if empty
+  
+  # Model selection
+  model: "gpt-4-turbo"  # You can change to gpt-3.5-turbo for lower cost
+  
+  # Generation parameters
+  temperature: 0.2
+  max_tokens: 1500
+  top_p: 1.0
+  frequency_penalty: 0.0
+  presence_penalty: 0.0
+  
+  # Usage tracking
+  save_usage_stats: true
+  usage_log_file: "openai_usage.log" 

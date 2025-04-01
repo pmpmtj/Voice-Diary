@@ -1,0 +1,57 @@
+# Google Drive specific configuration
+# Contains settings specific to the Google Drive download script
+
+# Google Drive API settings
+api:
+  scopes:
+    - https://www.googleapis.com/auth/drive
+  version: v3
+
+# Authentication files
+auth:
+  credentials_file: gdrive_credentials.json
+  token_file: gdrive_token.pickle
+
+# Folder configuration
+folders:
+  # List of folders to process
+  # Use 'root' for the root folder
+  target_folders:
+    - a-daily-log
+    - root
+    # Add more folders as needed
+    # - another-folder
+    # - yet-another-folder
+
+# File type configuration
+file_types:
+  include:
+    - .mp3
+    - .wav
+    - .m4a
+    - .flac
+    - .aac
+    - .ogg
+    - .wma
+
+    # Add other extensions you want to include
+
+# Download settings
+download:
+  # Whether to delete files from Google Drive after successful download
+  delete_after_download: true
+  # Whether to add timestamps to filenames
+  add_timestamps: true
+  # Timestamp format for filenames
+  timestamp_format: "%Y%m%d_%H%M%S_%f"
+  # Whether to skip Google Workspace files (Docs, Sheets, etc.)
+  skip_workspace_files: true
+
+# Error handling
+error_handling:
+  # Maximum number of retries for failed downloads
+  max_retries: 3
+  # Delay between retries (in seconds)
+  retry_delay: 5
+  # Whether to continue processing if a file fails to download
+  continue_on_error: true 

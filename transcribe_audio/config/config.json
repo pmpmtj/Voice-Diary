@@ -1,0 +1,6 @@
+{
+    "downloads_directory": "../gdrive_downloader/downloads",
+    "output_file": "transcription.txt",
+    "processed_directory": "processed_audio",
+    "received_transcriptions_directory": "received_transcriptions"
+} 

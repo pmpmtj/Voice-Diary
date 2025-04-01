@@ -1,0 +1,32 @@
+# Base configuration file for the project
+# Contains shared settings across all scripts
+
+# Common paths
+paths:
+  # Base directory for all downloads
+  downloads: downloads
+  # Directory for storing credentials and tokens
+  gdrive_credentials: gdrive_credentials
+  # Directory for storing logs
+  gdrive_logs: gdrive_logs
+
+# Common logging configuration
+logging:
+  level: INFO
+  format: '%(asctime)s - %(levelname)s - %(message)s'
+  handlers:
+    file:
+      filename: app.log
+      max_size: 10MB
+      backup_count: 5
+    console:
+      level: INFO
+
+# Common file operations
+file_operations:
+  # Default encoding for text files
+  encoding: utf-8
+  # Buffer size for file operations (in bytes)
+  buffer_size: 8192
+  # Delay between file operations (in seconds)
+  operation_delay: 0.1 

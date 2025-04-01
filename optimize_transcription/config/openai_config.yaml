@@ -1,0 +1,49 @@
+# OpenAI API configuration
+openai_config:
+  # Your OpenAI API key (left empty for security - set in environment variable or fill in)
+  api_key: ""  # Set your API key here or use environment variable OPENAI_API_KEY
+  
+  # API endpoint configuration
+  api_endpoint: "https://api.openai.com/v1/chat/completions"
+  
+  # The model to use for processing transcriptions
+  model: "gpt-3.5-turbo"  # Options: "gpt-4", "gpt-4-mini", "gpt-3.5-turbo"
+  
+  # Generation parameters
+  temperature: 0.3
+  max_tokens: 2048
+  top_p: 0.9
+  frequency_penalty: 0.0
+  presence_penalty: 0.0
+  
+  # Cost control options
+  enable_caching: true  # Cache identical requests to save on costs
+  track_usage: true     # Track API usage in a log file
+  
+  # Response format options (for newer models)
+  response_format: "text"  # Can be "text" or "json"
+
+# Usage tracking configuration
+usage_tracking:
+  log_file: "openai_usage.log"
+  log_level: "INFO"
+  track_tokens: true
+  track_cost: true
+
+# Cost estimate configuration (per 1K tokens)
+cost_estimates:
+  gpt-4:
+    input: 0.03
+    output: 0.06
+    max_tokens: 8192
+    context_window: 128000
+  gpt-4-mini:
+    input: 0.01
+    output: 0.03
+    max_tokens: 4096
+    context_window: 64000
+  gpt-3.5-turbo:
+    input: 0.001
+    output: 0.002
+    max_tokens: 4096
+    context_window: 16385 

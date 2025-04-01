@@ -1,0 +1,8 @@
+{
+  "send_demo_email": false,
+  "email": {
+    "to": "pmpmtj@hotmail.com.com",
+    "subject": "Voice Diary V3 - Transcription Report",
+    "message": "Please find your transcription report below."
+  }
+} 

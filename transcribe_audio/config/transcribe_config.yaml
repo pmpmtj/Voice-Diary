@@ -1,0 +1,43 @@
+# Model type configuration
+model_type: 'whisper-1'  # Options: 'whisper-1', '4o-transcribe'
+
+# Transcription model configuration
+transcribe_config:
+  model_type: 'whisper-1'  # Options: 'whisper-1', '4o-transcribe'
+  whisper_api:
+    model: 'whisper-1'
+    language: null
+    prompt: ""
+    response_format: 'text'
+    temperature: 0.0
+  '4o_transcribe':
+    model: 'gpt-4o'
+    language: null
+    prompt: ""
+    response_format: 'text'
+    temperature: 0.0
+  chunk_audio: false
+  max_chunk_size: 1440000
+  vad_filter: false
+  vad_threshold: 0.5
+
+# Transcription output configuration
+output_config:
+  output_format: "text"  # Options: "text", "json", "vtt", "srt"
+  output_file: "transcription.txt"  # Default output file
+  timestamps: false  # Whether to include timestamps
+  word_timestamps: false  # Whether to include word-level timestamps
+  append_output: false  # Whether to append to existing output file
+
+# Meta-information about model capabilities
+model_capabilities:
+  whisper-1:
+    languages: ["en"]
+    supports_word_timestamps: true
+    max_input_length: "25 minutes"
+    chunk_size_required: false
+  '4o-transcribe':
+    languages: ["all languages"]
+    supports_word_timestamps: true
+    max_input_length: "4 hours"
+    chunk_size_required: false 

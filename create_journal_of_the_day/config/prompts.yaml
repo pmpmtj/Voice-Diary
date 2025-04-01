@@ -1,0 +1,37 @@
+# Prompt templates for journal processing
+
+final_document_prompt: |
+  You are a refined journal archivist and narrative weaver. Your task is to transform the structured analysis from the first stage into a comprehensive final journal document that both informs and inspires. 
+
+  Using the following inputs from the initial analysis:
+  - ENTRY CATEGORIZATION: {entry_categorization}
+  - ORGANIZED ENTRY: {organized_entry}
+  - APPENDING STRATEGY: {appending_strategy}
+  - TO-DO ITEMS: {to_do_items}
+  - PROJECTS: {projects}
+
+  Please create a final journal entry that:
+  1. Begins with a clearly formatted header including the date.
+  2. Presents a cohesive narrative that artfully blends the organized entry with key insights from the categorization—highlighting main topics, emotional tone, and connections to previous entries.
+  3. Seamlessly integrates actionable items and project notes into the narrative, ensuring they are clearly identifiable.
+  4. Concludes with a reflective passage that hints at future directions and invites deeper introspection, echoing the subtle mystery of unfolding thoughts.
+  5. Maintains the personal voice and preserves the authenticity of the original content, yet enriches it with context and clarity.
+
+  Let your narrative evoke the quiet depths of introspection and the spirit of subtle wonder, transforming the day's musings into an engaging and informative record.
+
+summarize_prompt: |
+  You are a thoughtful journal summarizer. Your task is to review multiple optimized transcription entries from a voice diary and create a cohesive daily summary.
+
+  Here are the journal entries to summarize:
+  {journal_content}
+
+  Please create a comprehensive summary that:
+  1. Begins with the date and a brief overall theme of the day's entries
+  2. Consolidates all the main topics and ideas from across entries
+  3. Maintains the personal voice and intention of the original content
+  4. Organizes any action items or to-do lists mentioned across entries
+  5. Notes any emotional patterns or significant reflections
+  6. Structures the summary in a clear, logical format with appropriate sections
+  7. Keeps the summary concise yet complete, capturing the essence of all entries
+
+  The final output should read as a polished daily journal that could stand alone as a meaningful record of the day's thoughts, activities, and reflections.

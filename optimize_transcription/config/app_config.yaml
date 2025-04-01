@@ -1,0 +1,21 @@
+# Application configuration settings
+
+# File paths (relative to script location)
+paths:
+  transcription_file: "../transcription.txt"
+  output_directory: "./output"
+  ongoing_entries_prefix: ""  # Will be prepended with date in format YYYY-MM-DD
+  processed_transcriptions: "./processed_transcriptions"  # Directory for processed transcription files
+
+# Logging configuration
+logging:
+  log_file: "app.log"
+  max_size_bytes: 1048576  # 1 MB
+  backup_count: 3
+  log_level: "INFO"
+
+# Output file configuration
+output:
+  date_format: "%Y-%m-%d"
+  file_extension: "txt"
+  timestamp_format: "%Y-%m-%d_%H-%M-%S_%f"  # Format for processed transcription files 
