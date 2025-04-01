@@ -11,6 +11,8 @@ Voice Diary V3 is a pipeline-based system that:
 3. Optimizes transcriptions to clean and structure the content
 4. Generates summarized journal entries
 5. Stores data in a PostgreSQL database
+6. Emails journal summaries to specified recipients
+7. Allows on-demand generation of reports for specific date ranges
 
 The system runs on a configurable schedule to automatically process new voice recordings.
 
@@ -21,6 +23,7 @@ The system runs on a configurable schedule to automatically process new voice re
 - PostgreSQL 12+
 - FFmpeg (for audio processing)
 - Google Drive API credentials
+- Gmail API credentials (for email functionality)
 
 ## Installation
 
@@ -57,12 +60,36 @@ Follow the instructions in [DATABASE_SETUP.md](DATABASE_SETUP.md) to:
 2. Create OAuth credentials and download the credentials JSON file
 3. Place the credentials in the `gdrive_downloader/gdrive_credentials/` directory
 
+### 6. Gmail API Setup (for Email Functionality)
+
+1. In the same Google Cloud project, enable the Gmail API
+2. Create OAuth credentials for Desktop application
+3. Download the credentials JSON file and rename it to `credentials_gmail.json`
+4. Place it in the `send_email/config/` directory
+5. Configure your email settings in `send_email/config/email_config.json`
+
 ## Configuration
 
 ### Main Configuration
 
 Edit `config.json` to configure:
 - `runs_per_day`: Number of times the system runs per day (set to 0 to run once and exit)
+
+### Email Configuration
+
+Edit `send_email/config/email_config.json` to configure:
+- Email recipients
+- Subject lines
+- Message templates
+- Whether to enable email sending
+
+### On-the-Fly Report Configuration
+
+Edit `on_the_fly/config/on_the_fly_config.json` to configure:
+- Date ranges for report generation
+- Output directory and file name
+- Email settings for reports
+- Custom prompts for report generation
 
 ### Environment Variables
 
@@ -79,6 +106,8 @@ DATABASE_URL=postgresql://postgres:your_password@localhost:5432/transcriptions
 - `optimize_transcription/`: Transcription cleaning and processing
 - `create_journal_of_the_day/`: Journal entry generation
 - `summarized_entries/`: Output directory for final journal entries
+- `send_email/`: Email sending functionality using Gmail API
+- `on_the_fly/`: On-demand report generation for specific date ranges
 
 ## Usage
 
@@ -108,13 +137,32 @@ python scheduler.py
    - The system generates summarized journal entries from the processed transcriptions
    - Final entries are saved to `summarized_entries/`
 
-5. **Database Storage**:
+5. **Email Summaries**:
+   - Journal summaries are sent via email to configured recipients
+   - Uses Gmail API for secure and reliable delivery
+
+6. **Database Storage**:
    - All data is stored in the PostgreSQL database for long-term retention and querying
+
+### On-Demand Report Generation
+
+To generate reports for specific date ranges outside the regular schedule:
+
+```bash
+python on_the_fly/on_the_fly_reception.py
+```
+
+This will:
+1. Query the database for entries in the specified date range
+2. Process the entries using a custom prompt template
+3. Save the report to the configured output directory
+4. Optionally email the report to specified recipients
 
 ## Monitoring
 
 The system generates log files for monitoring:
 - `scheduler.log`: Main scheduler activity log
+- `on_the_fly/logs/on_the_fly.log`: On-demand report generation logs
 - Various module-specific logs in their respective directories
 
 ## Troubleshooting
@@ -125,11 +173,15 @@ The system generates log files for monitoring:
    - Check credentials in the `gdrive_downloader/gdrive_credentials/` directory
    - Ensure OAuth scopes are correctly configured
 
-2. **Transcription Failures**:
+2. **Gmail Authentication Issues**:
+   - Check credentials in the `send_email/config/` directory
+   - Verify that required Gmail API scopes are enabled
+
+3. **Transcription Failures**:
    - Verify that FFmpeg is installed and available in the system PATH
    - Check audio file formats and permissions
 
-3. **Database Connection Issues**:
+4. **Database Connection Issues**:
    - Verify PostgreSQL service is running
    - Check database credentials in the `.env` file
 
@@ -160,4 +212,5 @@ Use the `db_utils/setup_database.py` script to add or modify database tables.
 
 - OpenAI Whisper for transcription
 - Google Drive API for file management
+- Gmail API for email functionality
 - PostgreSQL for database storage 
