@@ -1,6 +1,6 @@
 {
     "source_directory": {
-        "source_dir": "C:/Users/pmpmt/voice_diary_app/downloads"
+        "source_dir": "C:/Users/pmpmt/voice_diary_app/dwnload_files/downloads"
     },
     "target_directories": {
         "audio_files_dir": "C:/Users/pmpmt/voice_diary_app/downloaded_audio_files",

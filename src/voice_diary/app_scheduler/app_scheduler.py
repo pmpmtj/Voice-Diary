@@ -91,6 +91,14 @@ def run_pipeline():
     state = {"last_run_time": datetime.now().isoformat()}
     
     try:
+        # Initialize database before pipeline execution
+        logger.info("Initializing database connection")
+        db_init_success = initialize_db()
+        if not db_init_success:
+            logger.error("Failed to initialize database connection")
+        else:
+            logger.info("Database initialization successful")
+        
         # Step 1: Download files from Google Drive
         logger.info("Starting file download from Google Drive")
         dwnload_files_main()

@@ -21,7 +21,7 @@ import subprocess
 import logging.handlers
 import re
 from openai import OpenAI
-from voice_diary.db_utils.db_manager import save_transcription as db_save_transcription
+from voice_diary.db_utils.db_manager import save_transcription as db_save_transcription, initialize_db
 
 
 # Initialize paths - handling both frozen (PyInstaller) and regular Python execution
@@ -444,13 +444,21 @@ def process_audio_files(client, audio_files, output_path, output_file):
         if transcription:
             # Save transcription to database
             duration = calculate_duration(file_path)
-            db_save_transcription(
-                content=transcription,
-                filename=file_path.name, 
-                audio_path=str(file_path),
-                duration_seconds=duration,
-                metadata={"transcribed_at": datetime.now().isoformat()}
-            )
+            try:
+                db_success = db_save_transcription(
+                    content=transcription,
+                    filename=file_path.name, 
+                    audio_path=str(file_path),
+                    duration_seconds=duration,
+                    metadata={"transcribed_at": datetime.now().isoformat()}
+                )
+                if db_success:
+                    logger.info(f"Successfully saved transcription to database for {file_path.name}")
+                else:
+                    logger.error(f"Failed to save transcription to database for {file_path.name}")
+            except Exception as e:
+                logger.error(f"Exception while saving transcription to database: {str(e)}")
+                logger.error(traceback.format_exc())
             
             # Add file name and timestamp to the transcription
             file_name = file_path.name
@@ -472,6 +480,14 @@ def run_transcribe():
     """Main function to run the transcription process."""
     try:
         # Configuration is already loaded at module level
+        
+        # Initialize database connection
+        logger.info("Initializing database connection for transcription")
+        db_init_success = initialize_db()
+        if not db_init_success:
+            logger.error("Failed to initialize database connection for transcription")
+        else:
+            logger.info("Database initialization successful for transcription")
         
         # Get downloads directory from Google Drive config
         gdrive_downloads_dir = get_downloads_dir_from_gdrive_config()
