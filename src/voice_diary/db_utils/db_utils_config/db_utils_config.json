@@ -1,6 +1,6 @@
 {
     "database": {
-        "default_url": "postgresql://postgres:postgres@localhost:5432/ap_jassist"
+        "default_url": "postgresql://postgres:postgres@localhost:5432/app_diary"
     },
     "logging": {
         "level": "INFO",
