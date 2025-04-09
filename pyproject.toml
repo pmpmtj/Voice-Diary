@@ -17,9 +17,9 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "google-auth">=2.38.0,
+    "google-auth>=2.38.0",
     "google-auth-oauthlib==1.2.0",
-    "google-api-python-client">=2.166.0,
+    "google-api-python-client>=2.166.0",
     "python-dotenv>=1.0.0",
     "psycopg2-binary>=2.9.5",
     "pytest>=8.3.5",
