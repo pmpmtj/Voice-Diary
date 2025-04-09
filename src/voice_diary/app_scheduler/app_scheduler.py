@@ -8,6 +8,7 @@ import traceback
 import threading
 from datetime import datetime, timedelta
 from pathlib import Path
+import shutil
 
 # Import voice diary components
 from voice_diary.dwnload_files.dwnload_files import main as dwnload_files_main
@@ -349,6 +350,126 @@ def main():
         logger.info("Scheduler interrupted by user")
     except Exception as e:
         logger.error(f"Unexpected error: {e}")
+        logger.error(traceback.format_exc())
+
+def ensure_env_file_exists():
+    """
+    Ensure the .env file exists in both the source directory and the installed package location.
+    This helps ensure the database configuration is properly loaded.
+    """
+    try:
+        # Get the source .env file path
+        src_env_path = Path(__file__).parent.parent / '.env'
+        
+        if src_env_path.exists():
+            # Get the installed package location
+            import importlib.resources
+            pkg_path = importlib.resources.files('voice_diary')
+            pkg_env_path = pkg_path / '.env'
+            
+            # Copy the .env file to the package location if it exists
+            if not pkg_env_path.exists() or (src_env_path.read_text() != pkg_env_path.read_text()):
+                logger.info(f"Copying .env file from {src_env_path} to {pkg_env_path}")
+                shutil.copy2(src_env_path, pkg_env_path)
+                return True
+            return True
+        else:
+            logger.warning(f".env file not found at {src_env_path}")
+            return False
+    except Exception as e:
+        logger.error(f"Error ensuring .env file exists: {e}")
+        return False
+
+def run_end_of_day_tasks():
+    """Run tasks that should happen at the end of the day"""
+    logger.info("Running end-of-day tasks")
+    
+    try:
+        # Ensure the .env file exists before initializing the database
+        ensure_env_file_exists()
+        
+        # Ensure the database connection is fresh
+        initialize_db()
+        
+        # Get the latest summaries from the database
+        try:
+            summaries = get_latest_day_summaries(limit=1)
+            if summaries:
+                logger.info(f"Retrieved {len(summaries)} day summaries")
+            else:
+                logger.info("No day summaries found in the database")
+        except Exception as e:
+            logger.error(f"Error retrieving summary from database: {e}")
+            logger.error(traceback.format_exc())
+            return
+        
+        # Read the summary config
+        try:
+            summary_config_path = Path(__file__).parent.parent / 'summarize_transcriptions' / 'config.json'
+            if not summary_config_path.exists():
+                logger.error(f"Summary config file not found at: {summary_config_path}")
+                raise FileNotFoundError(f"Summary config file not found at: {summary_config_path}")
+                
+            with open(summary_config_path, 'r') as f:
+                summary_config = json.load(f)
+        except Exception as e:
+            logger.error(f"Error loading summary config: {e}")
+            return
+        
+        # Read the latest summary file
+        try:
+            if summaries:
+                summary = summaries[0]
+                summary_content = summary.get('content', '')
+                logger.info(f"Latest summary content is {len(summary_content)} characters")
+            else:
+                # No summary in DB, try to read from file
+                summary_dir = Path(summary_config.get('summary_output_dir', '.'))
+                latest_summary_files = sorted(summary_dir.glob('*_summary.txt'), key=lambda x: x.stat().st_mtime, reverse=True)
+                
+                if latest_summary_files:
+                    latest_summary_file = latest_summary_files[0]
+                    with open(latest_summary_file, 'r') as f:
+                        summary_content = f.read()
+                    logger.info(f"Read summary from file: {latest_summary_file}")
+                else:
+                    logger.info("No summary files found")
+                    summary_content = "No diary entries for today."
+        except Exception as e:
+            logger.error(f"Error reading summary from file: {e}")
+            logger.error(traceback.format_exc())
+            summary_content = "Error retrieving diary summary."
+        
+        # Update email config with latest summary
+        try:
+            from voice_diary.send_email.send_email import update_email_message
+            
+            # Replace placeholders in the email template
+            today = datetime.now().strftime('%Y-%m-%d')
+            email_data = {
+                'summary': summary_content,
+                'date': today
+            }
+            
+            update_email_message(email_data)
+            logger.info("Updated email template with latest summary")
+        except Exception as e:
+            logger.error(f"Error updating email config: {e}")
+            logger.error(traceback.format_exc())
+        
+        # Send email with summary
+        try:
+            from voice_diary.send_email.send_email import send_voice_diary_email
+            
+            # Send the email
+            send_voice_diary_email()
+            logger.info("Sent daily summary email")
+        except Exception as e:
+            logger.error(f"End of day task failed: {e}")
+            logger.error(traceback.format_exc())
+    
+    except Exception as e:
+        logger.error(f"End-of-day task failed: {e}")
         logger.error(traceback.format_exc())
 
 if __name__ == "__main__":
