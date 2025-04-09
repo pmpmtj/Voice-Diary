@@ -1,0 +1,29 @@
+===== CONFIGURATION PATHS SUMMARY =====
+Found 10 configuration files with 9 path settings
+Paths status: 5 exist, 4 not found
+
+[DWNLOAD_FILES]
+  voice_diary\project_modules_configs\config_dwnload_files\dwnload_from_gdrive_conf.json
+    credentials_path: C:/Users/pmpmt/Scripts_Cursor/250404-Voi...e_credentials/gdrive_credentials.json [EXISTS]
+    downloads_path.downloads_dir: C:/Users/pmpmt/Scripts_Cursor/250404-Voi...c/voice_diary/dwnload_files/downloads [EXISTS]
+
+[TRANSCRIBE_RAW_AUDIO]
+  voice_diary\project_modules_configs\config_transcribe_raw_audio\transcribe_config.json
+    transcriptions_dir: C:/Users/pmpmt/Scripts_Cursor/250404-Voi...y/transcribe_raw_audio/transcriptions [EXISTS]
+
+[FILE_UTILS]
+  voice_diary\project_modules_configs\config_file_utils\file_utils_config.json
+    source_directory.source_dir: C:/Users/pmpmt/Scripts_Cursor/250404-Voi...c/voice_diary/dwnload_files/downloads [EXISTS]
+    target_directories.audio_files_dir: C:/Users/pmpmt/Scripts_Cursor/250404-Voice-Diary-V3-A/audio_files [NOT FOUND]
+    target_directories.image_files_dir: C:/Users/pmpmt/Scripts_Cursor/250404-Voice-Diary-V3-A/image_files [NOT FOUND]
+    target_directories.video_files_dir: C:/Users/pmpmt/Scripts_Cursor/250404-Voice-Diary-V3-A/video_files [NOT FOUND]
+
+[AGENT_SUMMARIZE_DAY]
+  voice_diary\project_modules_configs\config_agent_summarize_day\agent_summarize_day_config.json
+    paths.summarized_directory: C:/Users/pmpmt/Scripts_Cursor/250404-Voi...arized_entries/summarized_entries.txt [NOT FOUND]
+
+[SEND_EMAIL]
+  voice_diary\project_modules_configs\config_send_email\email_config.json
+    credentials_path: C:/Users/pmpmt/Scripts_Cursor/250404-Voi...il_credentials/credentials_gmail.json [EXISTS]
+
+===== END OF SUMMARY =====

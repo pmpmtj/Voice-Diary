@@ -1,0 +1,16 @@
+{
+    "paths": {
+      "summarized_directory": "C:/Users/pmpmt/voice_diary_app/summarized_entries/summarized_entries.txt"
+    },
+    "logging": {
+      "log_level": "INFO",
+      "summarize_day_log_file": "summarize_day.log",
+      "summarize_day_max_size_bytes": 1048576,
+      "summarize_day_backup_count": 3
+    },
+    "output": {
+      "date_format": "%Y-%m-%d"
+    },
+    "date_range": [],
+    "allow_summary_overwrite": true
+}

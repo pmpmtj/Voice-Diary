@@ -1,0 +1,39 @@
+{
+  "auth": {
+    "credentials_file": "test_credentials.json",
+    "token_file": "test_token.pickle"
+  },
+  "api": {
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.readonly"
+    ]
+  },
+  "folders": {
+    "target_folders": [
+      "TestAudioFiles"
+    ]
+  },
+  "audio_downloads_path": {
+    "downloads_dir": "test_downloads"
+  },
+  "file_types": {
+    "include": [
+      ".mp3",
+      ".wav",
+      ".m4a"
+    ]
+  },
+  "download": {
+    "add_timestamps": true,
+    "timestamp_format": "%Y%m%d_%H%M%S",
+    "delete_after_download": false
+  },
+  "logging": {
+    "level": "DEBUG",
+    "format": "%(asctime)s - %(levelname)s - %(name)s - %(message)s",
+    "log_file": "test_dwnld_audio.log",
+    "max_size_bytes": 1048576,
+    "backup_count": 3
+  },
+  "dry_run": false
+}

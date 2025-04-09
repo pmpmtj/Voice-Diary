@@ -1,0 +1,29 @@
+{
+  "send_email": true,
+  "validate_email": true,
+  "api": {
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.send",
+      "https://www.googleapis.com/auth/gmail.compose",
+      "https://www.googleapis.com/auth/gmail.modify",
+      "https://mail.google.com/"
+    ]
+  },
+  "credentials_path": "C:/Users/pmpmt/voice_calender_app/gmail_credentials/credentials_gmail.json",
+  "auth": {
+    "credentials_file": "credentials_gmail.json",
+    "token_file": "token_gmail.pickle"
+  },
+  "email": {
+    "to": "pmpmtj@hotmail.com",
+    "subject": "Voice Accounts Summary for ...",
+    "message": "Voice Diary Summary for 2025-04-09:\n\n=== Diary Summary: 2025-04-09 ===\n\n**Date: April 9, 2025**\n\n**Theme: Testing Pipeline Functionality**\n\nApril 9th continued with a focus on testing, specifically targeting the functionality of the pipeline after recent script enhancements.\n\n**Key Topics and Ideas:**\n\n- **Pipeline Testing**:\n  - A test message was sent to verify the operational status of the pipeline following enhancements to the script. This indicates ongoing efforts to ensure that recent improvements are effectively integrated and functioning as intended.\n\n**Emotional Patterns and Reflections**:\n\n- The entry reflects a diligent and systematic approach to testing, highlighting the importance of verifying enhancements in real-world scenarios.\n\n**Actions and To-Dos:**\n\n- **Monitor Pipeline**: Continue monitoring the pipeline to ensure that all enhancements are working correctly and efficiently.\n\nThe day's entry underscores a commitment to ensuring the robustness and reliability of the development process through careful testing and validation."
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(levelname)s - %(message)s",
+    "log_file": "send_email.log",
+    "max_size_bytes": 1048576,
+    "backup_count": 3
+  }
+}
