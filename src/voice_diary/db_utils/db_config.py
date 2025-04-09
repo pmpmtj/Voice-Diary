@@ -102,8 +102,32 @@ def get_db_url():
     db_url = os.environ.get('DATABASE_URL')
     
     if not db_url:
-        # If running locally, use default URL from config
-        logging.warning("DATABASE_URL not found in environment. Using default database.")
-        db_url = CONFIG.get('database', {}).get('default_url')
+        # Log that we couldn't find it in environment
+        logging.warning("DATABASE_URL not found in environment. Trying to load from .env file.")
+        
+        # Look for .env file in the current directory and voice_diary package directory
+        possible_env_paths = [
+            Path.cwd() / '.env',                     # Current working directory
+            Path(__file__).parent.parent / '.env',   # voice_diary package directory
+            Path.home() / '.voice_diary' / '.env',   # User's home directory
+            Path('/etc/voice_diary/.env')            # System-wide config
+        ]
+        
+        for env_path in possible_env_paths:
+            if env_path.exists():
+                logging.info(f"Found .env file at {env_path}")
+                load_dotenv(dotenv_path=env_path)
+                db_url = os.environ.get('DATABASE_URL')
+                if db_url:
+                    logging.info("Successfully loaded DATABASE_URL from .env file")
+                    break
+        
+        # If still not found, use default URL from config
+        if not db_url:
+            logging.warning("DATABASE_URL not found in any .env file. Using default database.")
+            db_url = CONFIG.get('database', {}).get('default_url')
+            if not db_url:
+                logging.error("No default database URL configured in db_utils_config.json")
     
+    logging.info(f"Using database URL: {db_url}")
     return db_url

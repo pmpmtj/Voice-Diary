@@ -19,7 +19,23 @@ def initialize_db():
     try:
         # Initialize connection pool
         db_url = get_db_url()
+        logger.info(f"Initializing database with connection URL: {db_url}")
+        
+        # Test connection before creating pool
+        logger.info("Testing direct database connection...")
+        try:
+            test_conn = psycopg2.connect(db_url)
+            logger.info("Direct connection test successful")
+            logger.info(f"PostgreSQL server version: {test_conn.server_version}")
+            test_conn.close()
+        except Exception as conn_error:
+            logger.error(f"Direct connection test failed: {str(conn_error)}")
+            return False
+        
+        # Create connection pool
+        logger.info("Creating connection pool...")
         connection_pool = pool.SimpleConnectionPool(1, 10, db_url)
+        logger.info("Connection pool created successfully")
         
         # Create tables
         create_tables()
@@ -27,6 +43,9 @@ def initialize_db():
         return True
     except Exception as e:
         logger.error(f"Failed to initialize database: {str(e)}")
+        # Print more detailed traceback for debugging
+        import traceback
+        logger.error(f"Traceback: {traceback.format_exc()}")
         return False
 
 def get_connection():
@@ -117,11 +136,21 @@ def save_transcription(content, filename=None, audio_path=None, model_type=None,
     transcription_id = None
     
     try:
+        logger.info("Getting database connection for save_transcription...")
         conn = get_connection()
+        
+        if conn is None:
+            logger.error("Failed to get connection from pool")
+            return None
+            
+        logger.info("Creating cursor for database operation...")
         cur = conn.cursor()
         
         # Convert metadata to JSONB if provided
         metadata_json = json.dumps(metadata) if metadata else None
+        
+        # Log what we're inserting
+        logger.info(f"Inserting transcription: filename={filename}, audio_path={audio_path}")
         
         # Insert transcription
         cur.execute("""
@@ -133,17 +162,23 @@ def save_transcription(content, filename=None, audio_path=None, model_type=None,
         
         transcription_id = cur.fetchone()[0]
         
+        logger.info(f"Committing transaction for transcription ID: {transcription_id}")
         conn.commit()
         logger.info(f"Saved transcription with ID: {transcription_id}")
         return transcription_id
         
     except Exception as e:
         if conn:
+            logger.error(f"Rolling back transaction due to error: {str(e)}")
             conn.rollback()
         logger.error(f"Error saving transcription: {str(e)}")
+        # Print more detailed traceback for debugging
+        import traceback
+        logger.error(f"Traceback: {traceback.format_exc()}")
         return None
     finally:
         if conn:
+            logger.debug("Returning connection to pool")
             return_connection(conn)
 
 def get_transcription(transcription_id):
