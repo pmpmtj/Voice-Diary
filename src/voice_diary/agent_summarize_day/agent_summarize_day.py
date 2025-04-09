@@ -553,7 +553,7 @@ def summarize_day():
     logger.info(f"Found {len(transcriptions)} transcriptions")
     
     # Get output file path from config
-    output_path = config.get("paths", {}).get("summarized_directory")
+    output_path = config.get("paths", {}).get("summarized_file")
     if not output_path:
         logger.error("Output path not specified in config")
         return False

@@ -31,7 +31,7 @@ class TestSummarizeDayIntegration(unittest.TestCase):
         # Sample configuration
         self.test_config = {
             "paths": {
-                "summarized_directory": "test_output.txt"
+                "summarized_file": "test_output.txt"
             },
             "logging": {
                 "log_level": "INFO",

@@ -20,7 +20,7 @@ Paths status: 5 exist, 4 not found
 
 [AGENT_SUMMARIZE_DAY]
   voice_diary\project_modules_configs\config_agent_summarize_day\agent_summarize_day_config.json
-    paths.summarized_directory: C:/Users/pmpmt/Scripts_Cursor/250404-Voi...arized_entries/summarized_entries.txt [NOT FOUND]
+    paths.summarized_file: C:/Users/pmpmt/Scripts_Cursor/250404-Voi...arized_entries/summarized_entries.txt [NOT FOUND]
 
 [SEND_EMAIL]
   voice_diary\project_modules_configs\config_send_email\email_config.json

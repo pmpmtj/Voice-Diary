@@ -353,6 +353,33 @@ def send_message(service, user_id, message):
         logger.error(f'Error sending message: {e}')
         return None
 
+def restore_default_message():
+    """Restore the default message in the email config after sending an email."""
+    try:
+        default_message = "=== THIS IS A TEST MESSAGE ==="
+        
+        # Load current email configuration
+        with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
+            config = json.load(f)
+        
+        # Check if message was changed
+        if config.get('email', {}).get('message') != default_message:
+            logger.info("Restoring default email message")
+            
+            # Update config with default message
+            config['email']['message'] = default_message
+            
+            # Write updated config back to file
+            with open(CONFIG_FILE, 'w', encoding='utf-8') as f:
+                json.dump(config, f, indent=2)
+            
+            logger.info("Default email message restored successfully")
+        else:
+            logger.info("Email message already set to default value")
+            
+    except Exception as e:
+        logger.error(f"Error restoring default email message: {str(e)}")
+
 def main():
     """Main function to send email via Gmail API."""
     if not check_credentials_file():
@@ -408,6 +435,8 @@ def main():
         
         if result:
             logger.info("Email sent successfully!")
+            # Restore default message after successful email sending
+            restore_default_message()
         else:
             logger.error("Failed to send email.")
             

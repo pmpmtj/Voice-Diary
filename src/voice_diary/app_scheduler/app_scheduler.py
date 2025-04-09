@@ -175,7 +175,7 @@ def run_end_of_day_task():
                         summary_config = json.load(f)
                     
                     # Get the summary file path from the config - this is actually a file path, not a directory
-                    summary_file_path = summary_config.get("paths", {}).get("summarized_directory")
+                    summary_file_path = summary_config.get("paths", {}).get("summarized_file")
                     
                     if summary_file_path and os.path.exists(summary_file_path):
                         # This is a file path, not a directory - read directly from it

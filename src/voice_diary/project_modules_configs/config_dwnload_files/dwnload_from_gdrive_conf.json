@@ -4,6 +4,9 @@
         "https://www.googleapis.com/auth/drive"
       ]
     },
+    "downloads_path": {
+      "downloads_dir": "C:/Users/pmpmt/voice_diary_app/downloads"
+    },
     "auth": {
       "credentials_file": "gdrive_credentials.json",
       "token_file": "gdrive_token.pickle"
@@ -57,9 +60,6 @@
       "add_timestamps": true,
       "timestamp_format": "%Y%m%d_%H%M%S_%f",
       "delete_after_download": true
-    },
-    "downloads_path": {
-      "downloads_dir": "C:/Users/pmpmt/voice_diary_app/dwnload_files/downloads"
     },
     "logging": {
         "level": "INFO",

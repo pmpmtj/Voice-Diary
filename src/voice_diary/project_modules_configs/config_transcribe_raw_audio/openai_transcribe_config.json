@@ -26,7 +26,7 @@
     "response_format": "json"
   },
   "cost_management": {
-    "max_audio_duration_seconds": 600,
+    "max_audio_duration_seconds": 300,
     "warn_on_large_files": true
   }
 }

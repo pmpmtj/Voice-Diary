@@ -1,6 +1,6 @@
 {
     "source_directory": {
-        "source_dir": "C:/Users/pmpmt/voice_diary_app/dwnload_files/downloads"
+        "source_dir": "C:/Users/pmpmt/voice_diary_app/downloads"
     },
     "target_directories": {
         "audio_files_dir": "C:/Users/pmpmt/voice_diary_app/downloaded_audio_files",
@@ -11,10 +11,10 @@
         "enabled": true
     },
     "image_file_types": {
-        "enabled": true
+        "enabled": false
     },
     "video_file_types": {
-        "enabled": true
+        "enabled": false
     },
     "logging": {
         "level": "INFO",

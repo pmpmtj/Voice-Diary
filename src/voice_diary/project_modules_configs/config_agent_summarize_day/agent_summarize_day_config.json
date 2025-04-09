@@ -1,6 +1,6 @@
 {
     "paths": {
-      "summarized_directory": "C:/Users/pmpmt/voice_diary_app/summarized_entries/summarized_entries.txt"
+      "summarized_file": "C:/Users/pmpmt/voice_diary_app/summarized_entries/summarized_entries.txt"
     },
     "logging": {
       "log_level": "INFO",

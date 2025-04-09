@@ -41,7 +41,7 @@ class TestAgentSummarizeDay(unittest.TestCase):
         # Mock configuration files
         self.test_config = {
             "paths": {
-                "summarized_directory": "test/path/summarized_entries.txt"
+                "summarized_file": "test/path/summarized_entries.txt"
             },
             "logging": {
                 "log_level": "INFO",
